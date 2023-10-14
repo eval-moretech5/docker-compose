@@ -25,7 +25,21 @@ services:
       DB_PASSWORD: empassword
       DB_URL: jdbc:postgresql://em23-postgres:5432/em
     ports:
-      - 8001:8003
+      - 8003:8003
+
+  linestat:
+    container_name: em23-linestat
+    image: eshurupov/em23-linestat:1.0
+    depends_on:
+      - em-postgres
+    networks:
+      - private
+    environment:
+      DB_USER: emuser
+      DB_PASSWORD: empassword
+      DB_URL: jdbc:postgresql://em23-postgres:5432/em
+    ports:
+      - 8005:8005
 
   routes:
     container_name: em23-routes
