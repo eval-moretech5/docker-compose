@@ -1,0 +1,72 @@
+version: "3"
+services:
+
+  em-postgres:
+    container_name: em23-postgres
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: emuser
+      POSTGRES_PASSWORD: empassword
+      POSTGRES_DB: em
+    networks:
+      - private
+    ports:
+      - 5432:5432
+
+  branches:
+    container_name: em23-branches
+    image: eshurupov/em23-branches:1.0
+    depends_on:
+      - em-postgres
+    networks:
+      - private
+    environment:
+      DB_USER: emuser
+      DB_PASSWORD: empassword
+      DB_URL: jdbc:postgresql://em23-postgres:5432/em
+    ports:
+      - 8001:8003
+
+  routes:
+    container_name: em23-routes
+    image: eshurupov/em23-routes:1.0
+    networks:
+      - private
+    ports:
+      - 8004:8004
+
+  routes-adapter:
+    container_name: em23-routes-adapter
+    image: eshurupov/em23-2gis-routes-adapter:1.0
+    networks:
+      - private
+    environment:
+      TWOGIS_KEY: ${TWOGIS_KEY}
+    ports:
+      - 8002:8002
+
+  ui:
+    container_name: em23-ui
+    image: eshurupov/em23-ui:1.0
+    ports:
+      - 9000:9000
+    networks:
+      - private
+
+  balancer:
+    container_name: em23-balancer
+    image: eshurupov/em23-balancer:1.0
+    depends_on:
+      - routes
+      - branches
+      - ui
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - public
+      - private
+
+networks:
+  public:
+  private:

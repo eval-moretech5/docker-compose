@@ -1,0 +1,4 @@
+openssl req -x509 -out viewplace.ru.crt -keyout viewplace.ru.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=viewplace.ru' -extensions EXT -config <( \
+   printf "[dn]\nCN=viewplace.ru\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:viewplace.ru\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
