@@ -38,7 +38,7 @@ docker compose up -d
 
 1. Загрузка всех отделения
     ```http request
-    POST http://localhost:8003/api/v1/import/native/branches
+    POST https://localhost/api/v1/import/native/branches
     ```
 2. Загрузка банкоматов в радиусе 10 км от указанной точки
     ```http request
