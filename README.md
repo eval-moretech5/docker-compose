@@ -44,7 +44,7 @@ docker compose up -d
     ```http request
     POST https://localhost/api/v1/import/native/atms?lon=50.134976006710495&lat=53.2011457870469
     ```
-3. Загрузка банкоматов в радиусе 10 км от указанной точки
+3. Генерация статистики очередей со временем нахождения в очереди для отделений в радиусе 10 км от указанной точки
     ```http request
     POST https://localhost/api/v1/line/filtered-init
     {
