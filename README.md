@@ -36,7 +36,7 @@ docker compose up -d
 
 Далее надо инициализировать, бд. Для этого надо сделать запросы:
 
-1. Загрузка всех отделения
+1. Загрузка всех отделений
     ```http request
     POST https://localhost/api/v1/import/native/branches
     ```
